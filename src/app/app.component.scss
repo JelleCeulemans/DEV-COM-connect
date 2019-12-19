@@ -1,0 +1,70 @@
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+#toolbarImage {
+  margin-left: 20px;
+}
+
+mat-nav-list mat-icon {
+  margin: auto 25px;
+}
+
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#nav-icon {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+mat-sidenav-container, mat-sidenav-container, mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 225px
+}
+
+a {
+  text-decoration: none;
+  color: white;
+
+  &:hover, &:active {
+      color:#AAAAAA;
+  }
+}
+
+#toolbarUser {
+  margin: 10px 50px;
+}
+
+#toolbarUser #fbImage {
+  margin-right: 20px;
+}
+
+img {
+  width: 150px;
+  height: auto;
+  padding-bottom: 10px;
+}
+
+mat-nav-list {
+  img {
+      margin: 0px 0px 0px 40px;
+  }
+}
+
+
+
+mat-toolbar {
+  img {
+    margin: 8px 0px 0px 15px;
+  }
+}
+

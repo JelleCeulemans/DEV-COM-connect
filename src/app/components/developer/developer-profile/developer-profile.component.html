@@ -1,0 +1,94 @@
+<div class="container mt-5 mb-5" *ngIf="developer" fxFlex fxLayout="column" fxLayoutGap="20px">
+  <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header class="mt-2 mb-4" *ngIf="developer.image">
+      <img style="border-radius: 15px;" [src]="developer.image" [alt]="developer.firstname" height="100px" width="100px"/>
+    </mat-card-header>
+    <mat-card-title>
+      <h3>{{ developer.firstname }} {{developer.lastname}}</h3>
+    </mat-card-title>
+    <mat-card-content fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+      <p>{{ developer.bio }}</p>
+      <p>{{ developer.dob | date:"dd MMMM yyyy"}}</p>
+      <p class="mt-3"><a [href]="developer.cv" target="_blank" mat-button color="primary">Curriculum Vitae</a></p>
+      <div >
+        <mat-chip-list fxHide.gt-xs mat-chip-list *ngFor="let tag of developer.experience" aria-orientation="vertical" fxLayoutAlign="center center" class="mt-1 mb-1">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div >
+        <mat-chip-list fxHide.lt-sm mat-chip-list *ngFor="let tag of developer.experience" fxLayoutAlign="center center" class="mr-1 ml-1" fxFlex fxLayout="row">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div>
+        <div>
+        <h4 class="profile-title " >Contact</h4></div>
+        <div class="contact-container">
+          <mat-icon>contact_mail</mat-icon><a class="contact-link" [href]="mailtoLink">{{developer.email}}</a>
+        </div>
+        <div  class="contact-container">
+          <mat-icon>contact_phone</mat-icon><a class="contact-link" [href]="telLink">{{developer.phone}}</a>
+        </div>
+        <div  class="contact-container">
+          <fa name="linkedin"></fa><a class="contact-link"[href]="['https://www.linkedin.com/in/' + developer.linkedIn.toLocaleLowerCase() + '/']"  target="_blank">{{developer.linkedIn}}</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="profile-title">Location</h4>
+        <div>{{developer.location.zipcode}} {{developer.location.city}}</div>
+      </div>
+      <div class="mt-3" *ngIf="role === 'Admin'"><button mat-raised-button color="warn" (click)="onDeleteDeveloper(developer.userId)">Delete Developer</button></div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card *ngIf="allowed">
+    <mat-card-title>
+      <h3> Write Review</h3>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="reviewForm">
+          <mat-icon class="star" id="star1" (click)="onClick(1)">star_border</mat-icon>
+          <mat-icon class="star" id="star2" (click)="onClick(2)">star_border</mat-icon>
+          <mat-icon class="star" id="star3" (click)="onClick(3)">star_border</mat-icon>
+          <mat-icon class="star" id="star4" (click)="onClick(4)">star_border</mat-icon>
+          <mat-icon class="star" id="star5" (click)="onClick(5)">star_border</mat-icon>
+        <br/>
+        <mat-form-field>
+          <textarea matInput formControlName="text" placeholder="Write a review"></textarea>
+        </mat-form-field><br/>
+        <button mat-button (click)="onSubmit()">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="splicedData.length > 0">
+
+      <mat-card-title>
+        <h3>Reviews</h3>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <div *ngFor="let review of splicedData" class="review" >
+          <div class="starContainer">
+            <div *ngFor="let star of showStars(review)" >
+              <mat-icon *ngIf="star == 'full'">star</mat-icon>
+              <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
+            </div>
+            <button mat-button *ngIf="role == 'Admin'" (click)="openDialog(review)" matTooltip="Delete this review"><mat-icon>delete</mat-icon></button>
+          </div>
+          <p>"{{review.text}}" - {{review.company.name}}</p>
+
+        <mat-divider ></mat-divider>
+        </div>
+
+      <mat-paginator (page)="pageChangeEvent($event)" [length]="reviews.length"
+      [pageSize]="5"
+      ></mat-paginator>
+      </mat-card-content>
+
+    </mat-card>
+</div>
