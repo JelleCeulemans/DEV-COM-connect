@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://localhost:3000/api',
+  // baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://radiant-atoll-66217.herokuapp.com/api',
   firebaseConfig: {
     apiKey: 'AIzaSyDAuLJOalzdqtTFPPoQeNAVno7MESkRZAA',
     authDomain: 'dev-comconnect.firebaseapp.com',

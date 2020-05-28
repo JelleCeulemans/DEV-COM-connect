@@ -18,4 +18,4 @@ This project is made by:
 
 ## See this Project?
 
-Click on the link: http://devcom.jelleceulemans.be/
+Click on the link: https://devcom.jelleceulemans.be/

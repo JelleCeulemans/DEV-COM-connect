@@ -14,6 +14,7 @@ import * as RoleAction from './components/auth/role.actions';
 import { LocalStorageService } from './services/localStorage.service';
 import { UserService } from './services/user.service';
 import { Role } from './models/role.enum';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +30,13 @@ export class AppComponent implements OnInit, OnDestroy {
   nameSub: Subscription;
 
   constructor(
+    public location: Location,
     private store: Store<fromRoot.State>,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private userService: UserService) { }
+    private userService: UserService) {
+
+    }
 
   ngOnInit() {
     this.autoLogin();
@@ -48,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
   autoLogin() {
     const userId = this.userService.getUserId();
     if (userId) {
-      // FIX THE NAVIGATE TO LOGIN!!
       const path = window.location.pathname;
       this.store.dispatch(new Auth.SetAuthenticated());
       this.userService.getUserbyId(userId).subscribe(result => {
@@ -63,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (name) {
           this.userService.emitChangeName(name);
         }
-        this.router.navigate([path]);
+        this.router.navigate([this.location.path()]);
       });
     }
   }
